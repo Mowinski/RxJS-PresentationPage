@@ -1,2 +1,17 @@
-<router-outlet></router-outlet>
+<div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        RxJS - Introduction
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start">
+        <div fxFlex="10%" fxFlex.xs="30%">
+            <app-menu></app-menu>
+        </div>
+        <div class="container" fxFlex="100%">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 
+    <div fxLayout="row" fxLayoutAlign="center center">
+        Footer
+    </div>
+</div>

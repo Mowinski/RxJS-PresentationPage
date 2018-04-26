@@ -1,3 +1,65 @@
-<p>
-  observable works!
-</p>
+<div>
+  <div>
+    <h2 *ngIf="gap == 'Observable'">Observable</h2>
+    <h2 *ngIf="gap != 'Observable'">?</h2>
+
+    <div  fxLayout="row">
+      <div fxFlex="50%">
+        represents the idea of an invokable collection of future values or events.
+      </div>
+      <div fxFlex="50%">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Single time/value</th>
+                <th>Multiple times/values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Deterministic time</th>
+                <td>Function</td>
+                <td>Iterator</td>
+              </tr>
+              <tr>
+                <th>Unknown time</th>
+                <td>Promis</td>
+                <td (click)="gap = 'Observable'">{{ gap }}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <div fxLayout="row" fxLayoutAlign="start start" *ngIf="gap == 'Observable'">
+    <div fxFlex="70%">
+      <h2>Code</h2>
+      <pre>
+        <code #code highlight class="typescript">
+let observable = Observable.of("Observable test");
+this.$subscription = observable.subscribe(text => this.result = text);
+...
+public onDestroy() &#123;
+  this.$subscription.unsubscribe();
+&#125;
+        </code>
+      </pre>
+    </div>
+
+    <div fxFlex="30%">
+      <h2>Result</h2>
+      <div [innerHTML]="result" id="result"></div>
+      <button mat-raised-button color="primary" (click)="run()">Run</button>
+      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+    </div>
+  </div>
+
+  <hr *ngIf="gap == 'Observable'">
+
+  <div *ngIf="gap == 'Observable'">
+    <a routerLink="/observable/complex"><mat-icon>arrow forward</mat-icon></a>
+  </div>
+</div>

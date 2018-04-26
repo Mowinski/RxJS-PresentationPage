@@ -9,12 +9,5 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-
-  constructor() {
-    Observable.of(1,2,3).map(x => x + '!!!'
-    ).subscribe(x => {
-      console.log(x);
-    });
-  }
+  constructor() {}
 }
