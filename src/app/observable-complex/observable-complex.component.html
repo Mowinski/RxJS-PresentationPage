@@ -1,3 +1,75 @@
-<p>
-  observable-complex works!
-</p>
+<div>
+  <div>
+    <h2>Observable - time based event</h2>
+
+    <div  fxLayout="row">
+      <div fxFlex="50%">
+        represents the idea of an invokable collection of future values or events.
+      </div>
+      <div fxFlex="50%">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Single time/value</th>
+                <th>Multiple times/values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Deterministic time</th>
+                <td>Function</td>
+                <td>Iterator</td>
+              </tr>
+              <tr>
+                <th>Unknown time</th>
+                <td>Promise</td>
+                <td>Observable</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="50%">
+      <img src="assets/debounceTime.png" style="max-width: 100%;">
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="start start">
+    <div fxFlex="70%">
+      <h2>Code</h2>
+      <pre>
+        <code #code highlight class="typescript">
+const observable = Observable.create((observer) => &#123;
+  setTimeout(() => observer.next(1), 1000);
+  setTimeout(() => observer.next(2), 2000);
+  setTimeout(() => observer.next(3), 3000);
+  setTimeout(() => observer.next(5), 5000);
+  setTimeout(() => observer.next(8), 8000);
+  setTimeout(() => observer.next(13), 13000);
+  setTimeout(() => observer.complete(), 21000);
+&#125;).debounceTime(1500);
+
+this.$subscription = observable.subscribe((number) => this.result += number + ' ');
+        </code>
+      </pre>
+    </div>
+
+    <div fxFlex="30%">
+      <h2>Result</h2>
+      <h3 *ngIf="timer">Elapsed time: {{ timer|number:'1.1-1' }}s</h3>
+      <div [innerHTML]="result" id="result"></div>
+      <button mat-raised-button color="primary" (click)="run()">Run</button>
+      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+    </div>
+  </div>
+
+  <div>
+    <a routerLink="/invokable-collection"><mat-icon>arrow_back</mat-icon></a>
+    <a routerLink="/pull-vs-push"><mat-icon>arrow_forward</mat-icon></a>
+  </div>
+</div>

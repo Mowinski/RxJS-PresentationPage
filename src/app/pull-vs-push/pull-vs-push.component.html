@@ -1,0 +1,76 @@
+<div>
+    <div>
+      <h2>Pull vs Push</h2>
+      <div  fxLayout="row">
+        <div fxFlex="50%">
+          <p>Observable can be treated as a standard function with no arguments, but generalize those to allow return multiple different values.</p>
+          <p>Subscribing to an observable object is like calling the function but the result will be available on callback.</p>
+        </div>
+        <div fxFlex="50%">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Producer</th>
+                  <th>Consumer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Pull</th>
+                  <td (click)="function = 'Function'">Passive ({{ function }}): produces data when requested</td>
+                  <td (click)="iterator = 'Iterator'">Active ({{ iterator }}): decides when data is requested</td>
+                </tr>
+                <tr>
+                  <th>Push</th>
+                  <td (click)="promise = 'Promise'">Active ({{ promise }}): produces data at its own pace</td>
+                  <td (click)="observable = 'Observable'">Passive ({{ observable }}): reacts to received data</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+
+    <hr *ngIf="function != '?' && observable != '?' && promise != '?' && iterator != '?'">
+
+    <div fxLayout="row" fxLayoutAlign="start start" *ngIf="function != '?' && observable != '?' && promise != '?' && iterator != '?'">
+      <div fxFlex="70%">
+        <h2>Code</h2>
+        <pre>
+          <code #code highlight class="typescript">
+const observable = Observable.create((observer) => &#123;
+  observer.next(1);
+  observer.next(2);
+  if (this.isError) &#123;
+    observer.error("Errors occures");
+  &#125;
+  observer.next(4);
+  observer.complete();
+  observer.next(8);
+&#125;);
+
+const observer = &#123;
+  next: (value: number) => this.result += value + ' ',
+  error: (error: Error) => this.result += 'Error: ' + error + ' ',
+  complete: () => this.result += 'Complete ',
+&#125; as Observer&#60;number&#62;;
+
+this.$subscription = observable.subscribe(observer);
+          </code>
+        </pre>
+      </div>
+
+      <div fxFlex="30%">
+        <h2>Result</h2>
+        <div [innerHTML]="result" id="result"></div>
+        <mat-slide-toggle color="accent" (change)="isError = !isError">Raise error</mat-slide-toggle><br>
+        <button mat-raised-button color="primary" (click)="run()">Run</button>
+        <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+      </div>
+    </div>
+
+    <div *ngIf="function != '?' && observable != '?' && promise != '?' && iterator != '?'">
+      <a routerLink="/observable/complex"><mat-icon>arrow_backward</mat-icon></a>
+    </div>
+  </div>

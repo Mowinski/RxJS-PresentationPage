@@ -24,7 +24,7 @@
               </tr>
               <tr>
                 <th>Unknown time</th>
-                <td>Promis</td>
+                <td>Promise</td>
                 <td (click)="gap = 'Observable'">{{ gap }}</td>
               </tr>
             </tbody>
@@ -39,7 +39,7 @@
       <h2>Code</h2>
       <pre>
         <code #code highlight class="typescript">
-let observable = Observable.of("Observable test");
+const observable = Observable.of('Observable test');
 this.$subscription = observable.subscribe(text => this.result = text);
 ...
 public onDestroy() &#123;
@@ -60,6 +60,6 @@ public onDestroy() &#123;
   <hr *ngIf="gap == 'Observable'">
 
   <div *ngIf="gap == 'Observable'">
-    <a routerLink="/observable/complex"><mat-icon>arrow forward</mat-icon></a>
+    <a routerLink="/observable/complex"><mat-icon>arrow_forward</mat-icon></a>
   </div>
 </div>

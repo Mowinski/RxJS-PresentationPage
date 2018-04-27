@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapComponent } from './map.component';
+import { PullVsPushComponent } from './pull-vs-push.component';
 
-describe('MapComponent', () => {
-  let component: MapComponent;
-  let fixture: ComponentFixture<MapComponent>;
+describe('PullVsPushComponent', () => {
+  let component: PullVsPushComponent;
+  let fixture: ComponentFixture<PullVsPushComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapComponent ]
+      declarations: [ PullVsPushComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapComponent);
+    fixture = TestBed.createComponent(PullVsPushComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
