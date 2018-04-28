@@ -12,6 +12,9 @@ import { StartComponent } from './start/start.component';
 import { ObservableComplexComponent } from './observable-complex/observable-complex.component';
 import { IteratorComponent } from './iterator/iterator.component';
 import { PullVsPushComponent } from './pull-vs-push/pull-vs-push.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
+import { SubscriptionAddComponent } from './subscription-add/subscription-add.component';
+import { SubscriptionTakeWhileComponent } from './subscription-take-while/subscription-take-while.component';
 
 const routes: Routes = [
   { path: '', component: StartComponent },
@@ -19,6 +22,9 @@ const routes: Routes = [
   { path: 'invokable-collection', component: ObservableComponent },
   { path: 'observable/complex', component: ObservableComplexComponent },
   { path: 'pull-vs-push', component: PullVsPushComponent },
+  { path: 'subscription', component: SubscriptionComponent },
+  { path: 'subscription/add', component: SubscriptionAddComponent },
+  { path: 'subscription/take-while', component: SubscriptionTakeWhileComponent },
   { path: '**', component: StartComponent }
 ];
 
@@ -40,6 +46,9 @@ const routes: Routes = [
     ObservableComplexComponent,
     IteratorComponent,
     PullVsPushComponent,
+    SubscriptionComponent,
+    SubscriptionAddComponent,
+    SubscriptionTakeWhileComponent,
   ],
 })
 export class RoutingRoutingModule { }
