@@ -62,7 +62,7 @@ this.$subscription = observable.subscribe((number) => this.result += number + ' 
     <div fxFlex="30%">
       <h2>Result</h2>
       <h3 *ngIf="timer">Elapsed time: {{ timer|number:'1.1-1' }}s</h3>
-      <div [innerHTML]="result" id="result"></div>
+      <div [innerHTML]="result" class="result"></div>
       <button mat-raised-button color="primary" (click)="run()">Run</button>
       <button mat-raised-button color="warn" (click)="clear()">Clear</button>
     </div>

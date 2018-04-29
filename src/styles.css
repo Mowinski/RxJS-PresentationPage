@@ -6,7 +6,7 @@
     font-weight: 400;
     src: url(/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
   }
-  
+
   .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
@@ -22,3 +22,29 @@
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
   }
+
+.result {
+    min-height: 50px;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+td:hover {
+    background-color: #ddd;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}

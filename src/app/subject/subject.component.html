@@ -1,0 +1,108 @@
+<div>
+    <div>
+      <h2>Subject</h2>
+
+      <div  fxLayout="row">
+        <div fxFlex="50%">
+            <ul>
+              <li>A subject can be subscribed to, just like an observable.</li>
+              <li>A subject can subscribe to other observables.</li>
+            </ul>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <mat-tab-group>
+      <mat-tab label="Observable">
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="70%">
+            <h2>Code</h2>
+            <pre>
+              <code #codeObserver highlight class="typescript">
+class Newspaper &#123;
+  constructor(public title: string, public release: number) &#123;&#125;
+&#125;
+
+function observerA(newspaper: Newspaper) &#123;
+  newspaper.title = 'TheWroclawTimes';
+  this.resultForA = value.title + ' ' + value.release;
+&#125;
+
+function observerB(newspaper: Newspaper) &#123;
+  this.resultForB = value.title + ' ' + value.release;
+&#125;
+
+
+const observable = Observable.create((observer) => &#123;
+  let release = 0;
+  setInterval(() => observer.next(new Newspaper('TheNewYorkTimes', release++)), 4000);
+&#125;);
+
+observable.subscribe(observerA);
+observable.delay(1000).subscribe(observerB);
+              </code>
+            </pre>
+          </div>
+
+          <div fxFlex="30%">
+            <h2>Result for A subscriber</h2>
+            <div class="result">I read <span [innerHTML]="resultForObservableA"></span></div>
+            <h2>Result for B subscriber</h2>
+            <div class="result">I read <span [innerHTML]="resultForObservableB"></span></div>
+            <button mat-raised-button color="primary" (click)="runObservable()">Run</button>
+            <button mat-raised-button color="warn" (click)="clearObservable()">Clear</button>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Subject">
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <div fxFlex="70%">
+              <h2>Code</h2>
+              <pre>
+                <code #codeSubject highlight class="typescript">
+class Newspaper &#123;
+  constructor(public title: string, public release: number) &#123;&#125;
+&#125;
+
+function observerA(newspaper: Newspaper) &#123;
+  newspaper.title = 'TheWroclawTimes';
+  this.resultForA = value.title + ' ' + value.release;
+&#125;
+
+function observerB(newspaper: Newspaper) &#123;
+  this.resultForB = value.title + ' ' + value.release;
+&#125;
+
+
+const observable = Observable.create((observer) => &#123;
+  let release = 0;
+  setInterval(() => observer.next(new Newspaper('TheNewYorkTimes', release++)), 4000);
+&#125;);
+
+const subject = new Subject();
+
+this.$subSubject = subject.subscribe(observerA);
+this.$subSubject2 = subject.delay(1000).subscribe(observerB);
+
+observable.subscribe(subject);
+                </code>
+              </pre>
+            </div>
+
+            <div fxFlex="30%">
+              <h2>Result for A subscriber</h2>
+              <div class="result">I read <span [innerHTML]="resultForSubjectA"></span></div>
+              <h2>Result for B subscriber</h2>
+              <div class="result">I read <span [innerHTML]="resultForSubjectB"></span></div>
+              <button mat-raised-button color="primary" (click)="runSubject()">Run</button>
+              <button mat-raised-button color="warn" (click)="clearSubject()">Clear</button>
+            </div>
+          </div>
+      </mat-tab>
+    </mat-tab-group>
+
+    <div>
+      <a routerLink="/subject/behavior-subject"><mat-icon>arrow_forward</mat-icon></a>
+    </div>
+  </div>

@@ -32,7 +32,7 @@ observable.subscribe((value) => this.result = value);
 
       <div fxFlex="30%">
         <h2>Result</h2>
-        <div [innerHTML]="result" id="result"></div>
+        <div [innerHTML]="result" class="result"></div>
         <div>Is alive: {{ isAlive }}</div>
         <button mat-raised-button color="primary" (click)="run()">Run</button>
         <button mat-raised-button color="warn" (click)="clear()">Kill</button>
