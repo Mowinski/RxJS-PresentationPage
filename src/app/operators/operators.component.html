@@ -1,0 +1,122 @@
+<div>
+  <div>
+    <h2>Operators</h2>
+    <div fxLayout="row">
+      <div fxFlex="30%">
+        <p>is a function, which returns new Observable object.</p>
+      </div>
+      <div fxFlex="70%">
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Creation</th>
+              <th>Transformation</th>
+              <th>Filtering</th>
+              <th>Combination</th>
+              <th>Utility</th>
+              <th>...</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="hidden"></td>
+              <td>create</td>
+              <td>buffer</td>
+              <td>debounceTime</td>
+              <td>combineLatest</td>
+              <td>do</td>
+              <td class="hidden"></td>
+            </tr>
+            <tr>
+              <td class="hidden"></td>
+              <td>from</td>
+              <td>map</td>
+              <td>filter</td>
+              <td>concat</td>
+              <td>delay</td>
+              <td class="hidden"></td>
+            </tr>
+            <tr>
+              <td class="hidden"></td>
+              <td>interval</td>
+              <td>scan</td>
+              <td>skip</td>
+              <td>merge</td>
+              <td>timeout</td>
+              <td class="hidden"></td>
+            </tr>
+            <tr>
+              <td class="hidden"></td>
+              <td>of</td>
+              <td>partition</td>
+              <td>take</td>
+              <td>mergeAll</td>
+              <td>toArray</td>
+              <td class="hidden"></td>
+            </tr>
+            <tr>
+              <td class="hidden"></td>
+              <td>repeat</td>
+              <td>pluck</td>
+              <td>takeWhile</td>
+              <td>zip</td>
+              <td>toPromise</td>
+              <td class="hidden"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div fxLayout="row" fxLayoutAlign="start start">
+    <div fxFlex="70%">
+      <h2>Code</h2>
+      <pre>
+        <code #code highlight class="typescript">
+class Sheep &#123;
+  static _id = 0;
+  public id: number;
+  constructor(public color: string) &#123;
+    this.id = Sheep._id++;
+  &#125;
+&#125;
+
+const flock = Array.from(
+  &#123; length: 15 &#125;,
+  () => Math.random() < 0.8 ? new Sheep('white') : new Sheep('black')
+);
+
+const simpleObservable = Observable.from(flock);
+const filteredObservable = Observable.from(flock).filter((sheep: Sheep) => sheep.color !== 'black');
+
+simpleObservable.subscribe((sheep: Sheep) => this.simpleResult.push(sheep));
+filteredObservable.subscribe((sheep: Sheep) => this.filterResult.push(sheep));
+// simpleObservable.filter((sheep: Sheep) => sheep.color !== 'black').subscribe((sheep: Sheep) => this.filterResult.push(sheep));
+        </code>
+      </pre>
+    </div>
+
+    <div fxFlex="30%">
+      <div fxLayout="row" class="result-operator">
+        <div fxFlex="50%">
+          <h2>Flock of sheep</h2>
+          <div *ngFor="let value of simpleResult">{{value.id}}: {{value.color}}</div>
+        </div>
+        <div fxFlex="50%">
+          <h2>Only white sheep</h2>
+          <div *ngFor="let value of filterResult">{{value.id}}: {{value.color}}</div>
+        </div>
+      </div>
+      <button mat-raised-button color="primary" (click)="run()">Run</button>
+      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+    </div>
+  </div>
+
+  <div>
+    <a routerLink="/operators/skip-and-take"><mat-icon>arrow_forward</mat-icon></a>
+  </div>
+</div>

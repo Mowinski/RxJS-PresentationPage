@@ -1,0 +1,32 @@
+<div>
+  <div>
+    <h2>Schedulers</h2>
+    <div fxLayout="row">
+      <p>Observable can be treated as a standard function with no arguments, but generalize those to allow return multiple different values.</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div fxLayout="row" fxLayoutAlign="start start">
+    <div fxFlex="70%">
+      <h2>Code</h2>
+      <pre>
+        <code #code highlight class="typescript">
+
+        </code>
+      </pre>
+    </div>
+
+    <div fxFlex="30%">
+      <h2>Result</h2>
+      <div [innerHTML]="result" class="result"></div>
+      <button mat-raised-button color="primary" (click)="run()">Run</button>
+      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+    </div>
+  </div>
+
+  <div>
+    <a routerLink="/scheduler"><mat-icon>arrow_backward</mat-icon></a>
+  </div>
+</div>

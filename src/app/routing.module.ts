@@ -22,6 +22,16 @@ import { BehaviourSubjectComponent } from './behaviour-subject/behaviour-subject
 import { ReplaySubjectComponent } from './replay-subject/replay-subject.component';
 import { NewsService } from './news.service';
 import { SanitizeHtml } from './pipes';
+import { SchedulersComponent } from './schedulers/schedulers.component';
+import { OperatorsComponent } from './operators/operators.component';
+import { componentFactoryName } from '@angular/compiler';
+import { ScanAndReduceComponent } from './scan-and-reduce/scan-and-reduce.component';
+import { SkipAndTakeComponent } from './skip-and-take/skip-and-take.component';
+import { BufferAndRepeatComponent } from './buffer-and-repeat/buffer-and-repeat.component';
+import { MergeComponent } from './merge/merge.component';
+import { CombineComponent } from './combine/combine.component';
+import { ZipComponent } from './zip/zip.component';
+import { MergeAllComponent } from './merge-all/merge-all.component';
 
 const routes: Routes = [
   { path: '', component: StartComponent },
@@ -35,6 +45,15 @@ const routes: Routes = [
   { path: 'subject', component: SubjectComponent },
   { path: 'subject/behavior-subject', component: BehaviourSubjectComponent },
   { path: 'subject/replay-subject', component: ReplaySubjectComponent },
+  { path: 'scheduler', component: SchedulersComponent },
+  { path: 'operators', component: OperatorsComponent },
+  { path: 'operators/skip-and-take', component: SkipAndTakeComponent },
+  { path: 'operators/scan-and-reduce', component: ScanAndReduceComponent },
+  { path: 'operators/buffer-and-repeat', component: BufferAndRepeatComponent },
+  { path: 'operators/merge', component: MergeComponent },
+  { path: 'operators/combine-latest', component: CombineComponent },
+  { path: 'operators/zip', component: ZipComponent },
+  { path: 'operators/merge-all', component: MergeAllComponent },
   { path: '**', component: StartComponent }
 ];
 
@@ -65,6 +84,15 @@ const routes: Routes = [
     BehaviourSubjectComponent,
     ReplaySubjectComponent,
     SanitizeHtml,
+    SchedulersComponent,
+    OperatorsComponent,
+    ScanAndReduceComponent,
+    SkipAndTakeComponent,
+    BufferAndRepeatComponent,
+    MergeComponent,
+    CombineComponent,
+    ZipComponent,
+    MergeAllComponent,
   ],
   providers: [NewsService],
 })

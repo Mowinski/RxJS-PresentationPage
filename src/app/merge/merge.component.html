@@ -1,0 +1,39 @@
+<div>
+  <div>
+    <h2>Merge</h2>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="50%">
+        <img src="assets/merge.png" style="max-width: 100%;">
+      </div>
+    </div>
+  <hr>
+
+  <div fxLayout="row" fxLayoutAlign="start start">
+    <div fxFlex="70%">
+      <h2>Code</h2>
+      <pre>
+        <code #code highlight class="typescript">
+
+        </code>
+      </pre>
+    </div>
+
+    <div fxFlex="30%">
+      <div fxLayout="row" class="result-operator">
+        <div fxFlex="50%">
+          <h2>Merge result</h2>
+          <div *ngFor="let value of result">{{value}}</div>
+        </div>
+      </div>
+      <button mat-raised-button color="primary" (click)="run()">Run</button>
+      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+    </div>
+  </div>
+
+  <div>
+    <a routerLink="/operators/buffer-and-repeat"><mat-icon>arrow_backward</mat-icon></a>
+    <a routerLink="/operators/combine-latest"><mat-icon>arrow_forward</mat-icon></a>
+  </div>
+</div>

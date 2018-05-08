@@ -1,0 +1,47 @@
+<div>
+    <div>
+      <div fxLayout="row">
+        <div fxFlex="50%">
+          <h2>Scan</h2>
+          <img src="/assets/scan.png" style="max-width: 80%;">
+        </div>
+        <div fxFlex="50%">
+          <h2>Reduce</h2>
+          <img src="/assets/reduce.png" style="max-width: 80%;">
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div fxFlex="70%">
+        <h2>Code</h2>
+        <pre>
+          <code #code highlight class="typescript">
+
+          </code>
+        </pre>
+      </div>
+
+      <div fxFlex="30%">
+        <div fxLayout="row" class="result-operator">
+          <div fxFlex="50%">
+            <h2>Scan result</h2>
+            <div *ngFor="let value of scanResult">{{value}}</div>
+          </div>
+          <div fxFlex="50%">
+            <h2>Reduce result</h2>
+            <div *ngFor="let value of reduceResult">{{value}}</div>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" (click)="run()">Run</button>
+        <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+      </div>
+    </div>
+
+    <div>
+      <a routerLink="/operators/skip-and-take"><mat-icon>arrow_backward</mat-icon></a>
+      <a routerLink="/operators/buffer-and-repeat"><mat-icon>arrow_forward</mat-icon></a>
+    </div>
+  </div>

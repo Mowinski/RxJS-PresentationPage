@@ -1,0 +1,47 @@
+<div>
+    <div>
+      <div fxLayout="row">
+        <div fxFlex="50%">
+          <h2>Skip</h2>
+          <img src="/assets/skip.png" style="max-width: 80%;">
+        </div>
+        <div fxFlex="50%">
+          <h2>Take</h2>
+          <img src="/assets/take.png" style="max-width: 80%;">
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div fxFlex="70%">
+        <h2>Code</h2>
+        <pre>
+          <code #code highlight class="typescript">
+
+          </code>
+        </pre>
+      </div>
+
+      <div fxFlex="30%">
+        <div fxLayout="row" class="result-operator">
+          <div fxFlex="50%">
+            <h2>Skip result</h2>
+            <div *ngFor="let value of skipResult">{{value}}</div>
+          </div>
+          <div fxFlex="50%">
+            <h2>Take result</h2>
+            <div *ngFor="let value of takeResult">{{value}}</div>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" (click)="run()">Run</button>
+        <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+      </div>
+    </div>
+
+    <div>
+      <a routerLink="/operators"><mat-icon>arrow_backward</mat-icon></a>
+      <a routerLink="/operators/scan-and-reduce"><mat-icon>arrow_forward</mat-icon></a>
+    </div>
+  </div>
