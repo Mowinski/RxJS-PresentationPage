@@ -3,11 +3,14 @@
     <h2>Zip</h2>
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="center center">
-      <div fxFlex="50%">
-        <img src="assets/zip.png" style="max-width: 100%;">
-      </div>
+  <div fxLayout="row" fxLayoutAlign="start start">
+    <div fxFlex="50%">
+      <img src="assets/zip.png" style="max-width: 70%;">
     </div>
+    <div fxFlex="50%">
+      <img src="assets/cookie-stempel.jpg" style="max-width: 70%;">
+    </div>
+  </div>
   <hr>
 
   <div fxLayout="row" fxLayoutAlign="start start">
@@ -15,7 +18,14 @@
       <h2>Code</h2>
       <pre>
         <code #code highlight class="typescript">
-
+const cakeObservable = Observable.interval(4000).map(() => this.getCakeShape());
+const stampObservable = Observable.interval(5000).map(() => this.getStamp());
+const cakeFactoryObservable = Observable.zip(
+  cakeObservable,
+  stampObservable,
+  (cake, stamp) => cake + ' with ' + stamp,
+);
+cakeFactoryObservable.subscribe((cake) => this.result.push(cake));
         </code>
       </pre>
     </div>
@@ -34,6 +44,5 @@
 
   <div>
     <a routerLink="/operators/combine-latest"><mat-icon>arrow_backward</mat-icon></a>
-    <a routerLink="/operators/merge-all"><mat-icon>arrow_forward</mat-icon></a>
   </div>
 </div>

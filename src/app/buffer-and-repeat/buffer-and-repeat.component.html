@@ -2,16 +2,23 @@
     <div>
       <div fxLayout="row">
         <div fxFlex="50%">
-          <h2>Buffer</h2>
-          <img src="/assets/buffer.png" style="max-width: 80%;">
+          <h2>Buffer (click on image)</h2>
+          <img src="/assets/buffer.png" style="max-width: 80%;" (click)="showBufferVideo = !showBufferVideo">
         </div>
         <div fxFlex="50%">
-          <h2>Repeat</h2>
-          <img src="/assets/repeat.png" style="max-width: 80%;">
+          <h2>Repeat (click on image)</h2>
+          <img src="/assets/repeat.png" style="max-width: 80%;" (click)="showRepeatVideo = !showRepeatVideo">
         </div>
       </div>
     </div>
-
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <iframe *ngIf="showBufferVideo" width="560" height="315" src="https://www.youtube.com/embed/Oi483GlQ5Rk?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <iframe *ngIf="showRepeatVideo" width="560" height="315" src="https://www.youtube.com/embed/ym64NFCWORY?rel=0&amp;controls=0&amp;showinfo=0&amp;start=44" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 30px">
+      <button *ngIf="showBufferVideo" mat-raised-button color="primary" (click)="showBufferVideo = false">Hide</button>
+      <button *ngIf="showRepeatVideo" mat-raised-button color="primary" (click)="showRepeatVideo = false">Hide</button>
+    </div>
     <hr>
 
     <div fxLayout="row" fxLayoutAlign="start start">
@@ -19,7 +26,24 @@
         <h2>Code</h2>
         <pre>
           <code #code highlight class="typescript">
+const waterObservable = Observable.interval(300).map(() => this.getWaterUnit());
+const triggerObservable = Observable.interval(5000);
+const fontainObservable = waterObservable.buffer(triggerObservable);
 
+this.$bufferSubscription = fontainObservable.subscribe((water: string[]) => this.bufferResult = water);
+
+const motherboardProduction = Observable.create((observer) => &#123;
+  observer.next('Mount processor');
+  setTimeout(() => observer.next('Mount first RAM'), 1000);
+  setTimeout(() => observer.next('Mount second RAM'), 3000);
+  setTimeout(() => observer.next('Mount third RAM'), 5000);
+  setTimeout(() => observer.next('Mount last RAM'), 7000);
+  setTimeout(() => observer.next('Voltage test - passed'), 9000);
+  setTimeout(() => observer.complete(), 10000);
+&#125;);
+
+motherboardProduction.repeat(3)
+  .subscribe((command: string) => this.repeatResult.push(command));
           </code>
         </pre>
       </div>
@@ -28,9 +52,11 @@
         <div fxLayout="row" class="result-operator">
           <div fxFlex="50%">
             <h2>Buffer result</h2>
-            <div *ngFor="let value of bufferResult">{{value}}</div>
+            <span *ngFor="let drop of bufferResult">
+              <img src="/assets/drop.png" *ngFor="let i of Arr(drop).fill(1)">
+            </span>
           </div>
-          <div fxFlex="50%">
+          <div fxFlex="50%" style="margin-left: 20px">
             <h2>Repeat result</h2>
             <div *ngFor="let value of repeatResult">{{value}}</div>
           </div>

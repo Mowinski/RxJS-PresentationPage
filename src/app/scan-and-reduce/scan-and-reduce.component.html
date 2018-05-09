@@ -19,7 +19,19 @@
         <h2>Code</h2>
         <pre>
           <code #code highlight class="typescript">
+const piggyBankObservable = Observable.interval(1000)
+  .takeWhile((value: number) => value &lt; this.timePeriod)
+  .map(() => Math.floor(Math.random() * 500)/100)
+  .reduce((acc: number, cur: number) => acc + cur, 0);
 
+piggyBankObservable.subscribe((value: number) => this.reduceResult = value);
+
+const backpackProblemObservable = Observable.interval(1000)
+  .map(() => Math.floor(Math.random() * 10) / 10)
+  .scan((acc, cur) => acc + cur, 0)
+  .takeWhile((weight: number) => weight &lt; this.maxWeight);
+
+backpackProblemObservable.subscribe((weight: number) => this.scanResult = weight);
           </code>
         </pre>
       </div>
@@ -28,11 +40,15 @@
         <div fxLayout="row" class="result-operator">
           <div fxFlex="50%">
             <h2>Scan result</h2>
-            <div *ngFor="let value of scanResult">{{value}}</div>
+            <h3>backpocket</h3>
+            <input type="number" placeholder="Max capacity of backpacket" [(ngModel)]="maxWeight">
+            <div *ngIf="scanResult"><span [innerHTML]="scanResult"></span> kg</div>
           </div>
           <div fxFlex="50%">
             <h2>Reduce result</h2>
-            <div *ngFor="let value of reduceResult">{{value}}</div>
+            <h3>piggy bank</h3>
+            <input type="number" placeholder="Period of saving money [seconds]" [(ngModel)]="timePeriod">
+            <div *ngIf="reduceResult"><span [innerHTML]="reduceResult"></span> $</div>
           </div>
         </div>
         <button mat-raised-button color="primary" (click)="run()">Run</button>

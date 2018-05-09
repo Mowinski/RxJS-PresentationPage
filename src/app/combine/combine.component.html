@@ -24,7 +24,7 @@
         <div fxLayout="row" class="result-operator">
           <div fxFlex="50%">
             <h2>Combine result</h2>
-            <div *ngFor="let value of result">{{value}}</div>
+            <div [innerHTML]="result"></div>
           </div>
         </div>
         <button mat-raised-button color="primary" (click)="run()">Run</button>

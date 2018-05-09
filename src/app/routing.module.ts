@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -67,6 +68,7 @@ const routes: Routes = [
     MatTabsModule,
     BrowserAnimationsModule,
     CommonModule,
+    FormsModule,
   ],
   exports: [
     RouterModule,

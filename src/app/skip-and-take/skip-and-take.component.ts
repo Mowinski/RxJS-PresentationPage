@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/skip';
 
 declare var hljs;
 
@@ -24,6 +25,12 @@ export class SkipAndTakeComponent {
 
   public run() {
     this.clear();
+
+    const pancakesObservable = Observable.interval(3000).map((value) => 'Pancakes ' + (value + 1));
+    this.$skipSubscription = pancakesObservable.skip(2).subscribe((pancakes: string) => this.skipResult.push(pancakes));
+
+    const queueObservable = Observable.interval(1000).map((value) => 'Client number ' + (value + 1));
+    this.$takeSubscription = queueObservable.take(5).subscribe((client: string) => this.takeResult.push(client));
   }
 
   public clear() {

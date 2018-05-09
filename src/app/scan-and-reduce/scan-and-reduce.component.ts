@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/reduce';
 
 declare var hljs;
 
@@ -10,10 +11,12 @@ declare var hljs;
   styleUrls: ['./scan-and-reduce.component.css']
 })
 export class ScanAndReduceComponent {
-  public scanResult = [];
-  public reduceResult = [];
+  public scanResult: number;
+  public reduceResult: number;
   private $scanSubscription: Subscription;
   private $reduceSubscription: Subscription;
+  private timePeriod: number;
+  private maxWeight: number;
 
   @ViewChild('code') set content(content: ElementRef) {
     if (content) {
@@ -23,11 +26,20 @@ export class ScanAndReduceComponent {
 
   public run() {
     this.clear();
-    const simpleObservable = Observable.interval(1000);
-    const mappedObservable = Observable.interval(1000).filter((value: number) => value % 2 === 0);
 
-    this.$scanSubscription = simpleObservable.subscribe((value) => this.scanResult.push(value));
-    this.$reduceSubscription = mappedObservable.subscribe((value) => this.reduceResult.push(value));
+    const piggyBankObservable = Observable.interval(1000)
+      .takeWhile((value: number) => value < this.timePeriod)
+      .map(() => Math.floor(Math.random() * 500) / 100)
+      .reduce((acc: number, cur: number) => acc + cur, 0);
+
+    this.$reduceSubscription = piggyBankObservable.subscribe((value: number) => this.reduceResult = value);
+
+    const backpackProblemObservable = Observable.interval(1000)
+      .map(() => Math.floor(Math.random() * 10) / 10)
+      .scan((acc, cur) => acc + cur, 0)
+      .takeWhile((weight: number) => weight < this.maxWeight);
+
+    this.$scanSubscription = backpackProblemObservable.subscribe((weight: number) => this.scanResult = weight);
   }
 
   public clear() {
@@ -37,6 +49,7 @@ export class ScanAndReduceComponent {
     if (this.$reduceSubscription) {
       this.$reduceSubscription.unsubscribe();
     }
+    this.reduceResult = 0;
   }
 
   public onDestroy() {

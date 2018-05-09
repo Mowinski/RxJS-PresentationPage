@@ -95,7 +95,8 @@ const filteredObservable = Observable.from(flock).filter((sheep: Sheep) => sheep
 
 simpleObservable.subscribe((sheep: Sheep) => this.simpleResult.push(sheep));
 filteredObservable.subscribe((sheep: Sheep) => this.filterResult.push(sheep));
-// simpleObservable.filter((sheep: Sheep) => sheep.color !== 'black').subscribe((sheep: Sheep) => this.filterResult.push(sheep));
+// simpleObservable.filter((sheep: Sheep) => sheep.color !== 'black')
+//   .subscribe((sheep: Sheep) => this.filterResult.push(sheep));
         </code>
       </pre>
     </div>

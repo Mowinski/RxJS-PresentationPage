@@ -19,7 +19,13 @@
         <h2>Code</h2>
         <pre>
           <code #code highlight class="typescript">
+const pancakesObservable = Observable.interval(3000).map((value) => "Pancakes " + value);
+pancakesObservable.skip(2)
+  .subscribe((pancakes: string) => this.skipResult.push(pancakes));
 
+const queueObservable = Observable.interval(1000).map((value) => "Client number " + value);
+queueObservable.take(5)
+  .subscribe((client: string) => this.takeResult.push(client));
           </code>
         </pre>
       </div>
