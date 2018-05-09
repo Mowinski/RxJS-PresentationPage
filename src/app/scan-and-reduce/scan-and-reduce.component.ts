@@ -13,10 +13,11 @@ declare var hljs;
 export class ScanAndReduceComponent {
   public scanResult: number;
   public reduceResult: number;
+  public timePeriod: number;
+  public maxWeight: number;
+
   private $scanSubscription: Subscription;
   private $reduceSubscription: Subscription;
-  private timePeriod: number;
-  private maxWeight: number;
 
   @ViewChild('code') set content(content: ElementRef) {
     if (content) {
