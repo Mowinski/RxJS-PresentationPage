@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 
 declare var hljs;
@@ -20,6 +21,25 @@ export class ObservableComponent {
       hljs.highlightBlock(content.nativeElement);
     }
   }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/observable/complex');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/iterator');
+    }
+    if (event.key === '.' && this.gap === 'Observable') {
+      this.run();
+    }
+    if (event.key === '.' && this.gap === '?') {
+      this.gap = 'Observable';
+    }
+
+  }
+
+  constructor(private router: Router) { }
 
   public run() {
     this.clear();

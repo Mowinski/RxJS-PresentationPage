@@ -33,7 +33,6 @@ export class NewsService {
     this.$sub = Observable.interval(5000)
         .take(NEWS.length)
         .map((ind: number) => NEWS[ind])
-        .delay(5000)
         .subscribe(this.newsSubject);
   }
 

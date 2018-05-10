@@ -1,7 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -28,7 +29,36 @@ export class PullVsPushComponent {
     }
   }
 
-  constructor() { }
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/subscription');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/observable/complex');
+    }
+    if (event.key === '.') {
+      if (this.function === '?') {
+        this.function = 'Function';
+        return;
+      }
+      if (this.iterator === '?') {
+        this.iterator = 'Iterator';
+        return;
+      }
+      if (this.promise === '?') {
+        this.promise = 'Promise';
+        return;
+      }
+      if (this.observable === '?') {
+        this.observable = 'Observable';
+        return;
+      }
+      this.run();
+    }
+  }
+
+  constructor(private router: Router) { }
 
   run() {
     this.clear();

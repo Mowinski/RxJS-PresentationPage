@@ -1,8 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/buffer';
 import 'rxjs/add/operator/repeat';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -25,6 +26,21 @@ export class BufferAndRepeatComponent {
       hljs.highlightBlock(content.nativeElement);
     }
   }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/operators/merge');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/operators/scan-and-reduce');
+    }
+    if (event.key === '.') {
+      this.run();
+    }
+  }
+
+  constructor(private router: Router) { }
 
   public run() {
     this.clear();

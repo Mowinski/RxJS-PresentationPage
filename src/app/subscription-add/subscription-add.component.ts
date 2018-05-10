@@ -1,8 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/observable/interval';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -16,12 +17,31 @@ export class SubscriptionAddComponent {
   public childResult = 0;
 
   private subscription: Subscription;
+
   @ViewChild('code') set content(content: ElementRef) {
     if (content) {
       hljs.highlightBlock(content.nativeElement);
     }
   }
-  constructor() { }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/subscription/take-while');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/subscription');
+    }
+    if (event.key === '.') {
+      if (!this.subscription) {
+        this.run();
+      } else {
+        this.clear();
+      }
+    }
+  }
+
+  constructor(private router: Router) { }
 
   run() {
     this.result = 0;
@@ -35,6 +55,7 @@ export class SubscriptionAddComponent {
   clear() {
     if (this.subscription) {
       this.subscription.unsubscribe();
+      this.subscription = undefined;
     }
   }
 }

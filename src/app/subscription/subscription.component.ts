@@ -1,7 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/observable/interval';
+import { Router } from '@angular/router';
 
 declare var window;
 declare var hljs;
@@ -20,7 +21,20 @@ export class SubscriptionComponent {
     }
   }
 
-  constructor() { }
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/subscription/add');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/pull-vs-push');
+    }
+    if (event.key === '.') {
+      this.run();
+    }
+  }
+
+  constructor(private router: Router) { }
 
   run() {
     this.result = 0;

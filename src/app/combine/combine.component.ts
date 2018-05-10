@@ -1,8 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/operator/scan';
+import 'rxjs/add/operator/distinctUntilChanged';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -13,7 +14,12 @@ declare var hljs;
 })
 export class CombineComponent {
 
-  public result = '';
+  public status: boolean;
+  public result: string;
+  public showCode = false;
+  public databaseStatus = false;
+  public webserverStatus = false;
+
   private $subscription: Subscription;
 
   @ViewChild('code') set content(content: ElementRef) {
@@ -21,20 +27,51 @@ export class CombineComponent {
       hljs.highlightBlock(content.nativeElement);
     }
   }
-  constructor() {}
+  @ViewChild('code2') set content2(content: ElementRef) {
+    if (content) {
+      hljs.highlightBlock(content.nativeElement);
+    }
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/operators/zip');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/operators/merge');
+    }
+    if (event.key === '.') {
+      if (!this.$subscription) {
+        this.run();
+      } else if (!this.databaseStatus) {
+        this.databaseStatus = true;
+      } else if (!this.webserverStatus) {
+        this.webserverStatus = true;
+      } else if (this.databaseStatus && this.webserverStatus) {
+        this.databaseStatus = false;
+      }
+    }
+  }
+
+  constructor(private router: Router) { }
 
   public run() {
     this.clear();
 
-    const textObservable = Observable.interval(4000).map((value) => 'Lorem ipsum ' + value + '<br>');
-    const photoObservable = Observable.interval(2000).map((value) => 'Photo ' + value + '<br>');
+    const databaseObservable = Observable.interval(10).map((value) => this.databaseStatus);
+    const webserverObservable = Observable.interval(10).map((value) => this.webserverStatus);
     const articleObservable = Observable.combineLatest(
-      textObservable,
-      photoObservable,
-      (text, photo) => text + photo,
+      databaseObservable,
+      webserverObservable,
+      (databaseStatus, webserverStatus) => databaseStatus && webserverStatus,
     )
-    .scan((acc, cur) => acc + cur);
-    this.$subscription = articleObservable.subscribe((article: string) => this.result = article);
+    .distinctUntilChanged();
+    this.$subscription = articleObservable.subscribe((article: boolean) => {
+      this.result = 'changed';
+      this.status = article;
+      setTimeout(() => this.result = '', 1000);
+    });
   }
 
   public clear() {

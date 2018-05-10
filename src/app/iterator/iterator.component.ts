@@ -1,4 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -17,7 +18,20 @@ export class IteratorComponent {
     }
   }
 
-  constructor() { }
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/invokable-collection');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/');
+    }
+    if (event.key === '.') {
+      this.run();
+    }
+  }
+
+  constructor(private router: Router) { }
 
   run() {
     this.clear();

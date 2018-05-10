@@ -1,10 +1,11 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/delay';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -40,7 +41,17 @@ export class SubjectComponent {
     }
   }
 
-  constructor() { }
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/subject/behavior-subject');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/subscription/take-while');
+    }
+  }
+
+  constructor(private router: Router) { }
 
   runObservable() {
     this.clearObservable();

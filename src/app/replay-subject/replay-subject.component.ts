@@ -1,9 +1,10 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 
 import { NewsService, News } from '../news.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -36,9 +37,23 @@ export class ReplaySubjectComponent {
     }
   }
 
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/operators');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/subject/behavior-subject');
+    }
+    if (event.key === '.') {
+      this.run();
+    }
+  }
+
   constructor(
     private newsService: NewsService,
     private sanitizer: DomSanitizer,
+    private router: Router,
   ) {
     this.subscriptions = [] as [Subscription];
   }

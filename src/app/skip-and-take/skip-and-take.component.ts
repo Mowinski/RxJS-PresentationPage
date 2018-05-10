@@ -1,7 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/skip';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -22,6 +23,21 @@ export class SkipAndTakeComponent {
       hljs.highlightBlock(content.nativeElement);
     }
   }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/operators/scan-and-reduce');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/operators');
+    }
+    if (event.key === '.') {
+      this.run();
+    }
+  }
+
+  constructor(private router: Router) { }
 
   public run() {
     this.clear();

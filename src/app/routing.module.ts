@@ -33,6 +33,7 @@ import { MergeComponent } from './merge/merge.component';
 import { CombineComponent } from './combine/combine.component';
 import { ZipComponent } from './zip/zip.component';
 import { MergeAllComponent } from './merge-all/merge-all.component';
+import { MatInputModule } from '@angular/material/input';
 
 const routes: Routes = [
   { path: '', component: StartComponent },
@@ -65,6 +66,7 @@ const routes: Routes = [
     MatButtonModule,
     MatIconModule,
     MatSlideToggleModule,
+    MatInputModule,
     MatTabsModule,
     BrowserAnimationsModule,
     CommonModule,

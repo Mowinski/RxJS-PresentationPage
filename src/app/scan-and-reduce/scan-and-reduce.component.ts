@@ -1,7 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/reduce';
+import 'rxjs/add/operator/scan';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -24,6 +26,27 @@ export class ScanAndReduceComponent {
       hljs.highlightBlock(content.nativeElement);
     }
   }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/operators/buffer-and-repeat');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/operators/skip-and-take');
+    }
+    if (event.key === '.') {
+      if (!this.timePeriod) {
+        this.timePeriod = 10;
+      }
+      if (!this.maxWeight) {
+        this.maxWeight = 10;
+      }
+      this.run();
+    }
+  }
+
+  constructor(private router: Router) { }
 
   public run() {
     this.clear();

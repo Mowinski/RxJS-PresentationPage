@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --base-href \"https://mowinski.github.io/RxJS-PresentationPage\" && ngh"
+    "deploy": "ng build --prod --base-href \"https://mowinski.github.io/RxJS-PresentationPage/\" --deploy-url \"/RxJS-PresentationPage/\" && ngh"
   },
   "private": true,
   "dependencies": {

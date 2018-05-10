@@ -1,7 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -19,6 +20,21 @@ export class MergeComponent {
       hljs.highlightBlock(content.nativeElement);
     }
   }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/operators/combine-latest');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/operators/buffer-and-repeat');
+    }
+    if (event.key === '.') {
+      this.run();
+    }
+  }
+
+  constructor(private router: Router) { }
 
   public run() {
     this.clear();

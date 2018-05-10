@@ -3,11 +3,11 @@
       <div fxLayout="row">
         <div fxFlex="50%">
           <h2>Buffer (click on image)</h2>
-          <img src="/assets/buffer.png" style="max-width: 80%;" (click)="showBufferVideo = !showBufferVideo">
+          <img src="./assets/buffer.png" style="max-width: 80%;" (click)="showBufferVideo = !showBufferVideo">
         </div>
         <div fxFlex="50%">
           <h2>Repeat (click on image)</h2>
-          <img src="/assets/repeat.png" style="max-width: 80%;" (click)="showRepeatVideo = !showRepeatVideo">
+          <img src="./assets/repeat.png" style="max-width: 80%;" (click)="showRepeatVideo = !showRepeatVideo">
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@ motherboardProduction.repeat(3)
           <div fxFlex="50%">
             <h2>Buffer result</h2>
             <span *ngFor="let drop of bufferResult">
-              <img src="/assets/drop.png" *ngFor="let i of Arr(drop).fill(1)">
+              <img src="./assets/drop.png" *ngFor="let i of Arr(drop).fill(1)" class="waterdrop">
             </span>
           </div>
           <div fxFlex="50%" style="margin-left: 20px">

@@ -1,7 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/debounceTime';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -23,7 +24,21 @@ export class ObservableComplexComponent {
       hljs.highlightBlock(content.nativeElement);
     }
   }
-  constructor() { }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/pull-vs-push');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/invokable-collection');
+    }
+    if (event.key === '.') {
+      this.run();
+    }
+  }
+
+  constructor(private router: Router) { }
 
   run() {
     this.clear();

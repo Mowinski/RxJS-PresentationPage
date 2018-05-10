@@ -1,7 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 declare var hljs;
 
@@ -26,7 +27,18 @@ export class BehaviourSubjectComponent {
       hljs.highlightBlock(content.nativeElement);
     }
   }
-  constructor() { }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'PageDown') {
+      this.router.navigateByUrl('/subject/replay-subject');
+    }
+    if (event.key === 'PageUp') {
+      this.router.navigateByUrl('/subject');
+    }
+  }
+
+  constructor(private router: Router) { }
 
   run(runBehavior: boolean) {
     if (runBehavior) {
