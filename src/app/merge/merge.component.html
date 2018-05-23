@@ -4,28 +4,22 @@
   </div>
 
   <div fxLayout="row" fxLayoutAlign="center center">
-      <div fxFlex="50%">
-        <img src="assets/merge.png" style="max-width: 60%;">
-      </div>
-    </div>
+      <img src="assets/merge.png" style="max-width: 60%;">
+  </div>
   <hr>
 
-  <div fxLayout="row" fxLayoutAlign="start start">
-    <div fxFlex="70%">
-      <h2>Code</h2>
-      <pre>
-        <code #code highlight class="typescript">
+  <div fxFlex="100%">
+    <h2>Code</h2>
+    <pre>
+      <code #code highlight class="typescript">
 const dailyBugleObservable = Observable.create((observer) => &#123;
-  let number = 0;
-  setInterval(() => observer.next("Spider-Man - Threat or menace " + number++), 5000);
+  setNextEmitInInterval("Spider-Man - Threat or menace", 5000, observer);
 &#125;);
 const dailyNewsObservable = Observable.create((observer) => &#123;
-  let number = 0;
-  setInterval(() => observer.next("World leaders meet ... " + number++), 10000);
+  setNextEmitInInterval("World leaders meet ... ", 10000, observer);
 &#125;);
 const pudelekObservable = Observable.create((observer) => &#123;
-  let number = 0;
-  setInterval(() => observer.next("Słodkie pocałunki... zobacz kogo: " + number++), 2500);
+  setNextEmitInInterval("Słodkie pocałunki... zobacz kto!", 2500, observer);
 &#125;);
 
 const newsObservable = merge(
@@ -35,20 +29,19 @@ const newsObservable = merge(
 );
 
 newsObservable.subscribe((news: string) => this.result.push(news));
-        </code>
-      </pre>
-    </div>
+      </code>
+    </pre>
+  </div>
 
-    <div fxFlex="30%">
-      <div fxLayout="row" class="result-operator">
-        <div fxFlex="50%">
-          <h2>Merge result</h2>
-          <div *ngFor="let value of result" [ngStyle]="{'color': value[1] }">{{value[0]}}</div>
-        </div>
+  <div fxFlex="100%">
+    <div fxLayout="row" class="result-operator">
+      <div fxFlex="50%">
+        <h2>Merge result</h2>
+        <div *ngFor="let value of result" [ngStyle]="{'color': value[1] }">{{value[0]}}</div>
       </div>
-      <button mat-raised-button color="primary" (click)="run()">Run</button>
-      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
     </div>
+    <button mat-raised-button color="primary" (click)="run()">Run</button>
+    <button mat-raised-button color="warn" (click)="clear()">Clear</button>
   </div>
 
   <div>

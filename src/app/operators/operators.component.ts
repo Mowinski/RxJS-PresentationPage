@@ -12,8 +12,17 @@ declare var hljs;
 class Sheep {
   static _id = 0;
   public id: number;
-  constructor(public color: string) {
+  private ramName = ['Billy', 'Lambert', 'Midnight', 'Smokey', 'Stormy', 'Licorice', 'Shadow', 'Latte', 'Cocoa', 'Brownie', 'Sandy', 'Toffee', 'Fuzzy', 'Curly', 'Mephistopheles'];
+  private sheepName = ['Nanny', 'Pan', 'Wooly', 'Bo Peep', 'Snowy', 'Snow White', 'Daisy', 'Snowflake', 'Cloud', 'Cream', 'Amber', 'Carmel', 'Cuddles', 'Fluffy', 'Snowball'];
+  constructor(public isRam: boolean) {
     this.id = Sheep._id++;
+  }
+
+  public getName() {
+    if(this.isRam) {
+      return this.ramName[this.id];
+    }
+    return this.sheepName[this.id];
   }
 }
 
@@ -52,15 +61,15 @@ export class OperatorsComponent {
 
   public run() {
     this.clear();
-    const flock = Array.from({length: 15}, () => Math.random() < 0.8 ? new Sheep('white') : new Sheep('black'));
+    const flock = Array.from({length: 15}, () => Math.random() < 0.8 ? new Sheep(false) : new Sheep(true));
 
     const simpleObservable = Observable.from(flock).concatMap((sheep) => Observable.of(sheep).delay(1000));
-    const mappedObservable = Observable.from(flock)
+    const filteredObservable = Observable.from(flock)
       .concatMap((sheep) => Observable.of(sheep).delay(1000))
-      .filter((sheep: Sheep) => sheep.color !== 'black');
+      .filter((sheep: Sheep) => sheep.isRam);
 
     this.$simpleSubscription = simpleObservable.subscribe((value) => this.simpleResult.push(value));
-    this.$filterSubscription = mappedObservable.subscribe((value) => this.filterResult.push(value));
+    this.$filterSubscription = filteredObservable.subscribe((value) => this.filterResult.push(value));
   }
 
   public clear() {

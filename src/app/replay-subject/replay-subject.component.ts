@@ -62,7 +62,7 @@ export class ReplaySubjectComponent {
     this.newsService.create();
     const indx = this.subscriptions.length;
     this.subscriptions.push(this.newsService.getLatestNews().subscribe(
-      (news: News) => this.result += '<span style="color: ' + this.colors[indx] + '">Reader ' + indx + ': ' + news.title + '</span><br>',
+      (news: News) => this.result += `<span style="color: ${this.colors[indx]}">Reader ${indx}: ${news.title}</span><br>`,
     ));
   }
 

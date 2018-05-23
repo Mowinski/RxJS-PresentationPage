@@ -1,46 +1,45 @@
 <div>
-    <div>
-      <h2>Subscription - nice trick</h2>
-      <div  fxLayout="row">
-        <div fxFlex="50%">
-          <p>Subscription can be active as long as the condition is true.</p>
-          <p>We can use operator <i>takeWhile</i> to check condition</p>
-        </div>
+  <div>
+    <h2>Subscription - nice trick</h2>
+    <div  fxLayout="row">
+      <div fxFlex="100%">
+        <p>Subscription can be active as long as the condition is true.</p>
+        <p>We can use operator <i>takeWhile</i> to check condition</p>
       </div>
-    </div>
-
-    <hr>
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <div fxFlex="50%">
-          <img src="assets/takeWhile.png" style="max-width: 80%;">
-        </div>
-      </div>
-    <hr>
-
-    <div fxLayout="row" fxLayoutAlign="start start">
-      <div fxFlex="70%">
-        <h2>Code</h2>
-        <pre>
-          <code #code highlight class="typescript">
-this.isAlive = true;
-const observable = Observable.interval(1000).takeWhile(() => this.isAlive);
-
-observable.subscribe((value) => this.result = value);
-          </code>
-        </pre>
-      </div>
-
-      <div fxFlex="30%">
-        <h2>Result</h2>
-        <div [innerHTML]="result" class="result"></div>
-        <div>Is alive: {{ isAlive }}</div>
-        <button mat-raised-button color="primary" (click)="run()">Run</button>
-        <button mat-raised-button color="warn" (click)="clear()">Kill</button>
-        <button mat-raised-button color="accent" (click)="isAlive = true" *ngIf="!isAlive">Resurect</button>
-      </div>
-    </div>
-
-    <div>
-      <a routerLink="/subscription/add"><mat-icon>arrow_backward</mat-icon></a>
     </div>
   </div>
+
+  <hr>
+  <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="70%">
+        <img src="assets/takeWhile.png" style="max-width: 100%;">
+      </div>
+    </div>
+  <hr>
+
+  <div fxFlex="100%">
+    <h2>Code</h2>
+    <pre>
+      <code #code highlight class="typescript">
+this.isAlive = true;
+const observable = Observable.interval(1000)
+  .<b style="color: red">takeWhile</b>(() => this.isAlive);
+
+observable.subscribe((value) => this.result = value);
+      </code>
+    </pre>
+  </div>
+
+  <div fxFlex="100%">
+    <h2>Result</h2>
+    <div [innerHTML]="result" class="result"></div>
+    <div><code><b>this</b>.isAlive = {{ isAlive }}</code></div>
+    <button mat-raised-button color="primary" (click)="run()">Run</button>
+    <button mat-raised-button color="warn" (click)="isAlive = false">False</button>
+    <button mat-raised-button color="accent" (click)="isAlive = true" *ngIf="!isAlive">True</button>
+  </div>
+
+  <div>
+    <a routerLink="/subscription/add"><mat-icon>arrow_backward</mat-icon></a>
+  </div>
+</div>

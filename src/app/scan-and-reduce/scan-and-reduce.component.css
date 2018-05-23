@@ -1,3 +1,7 @@
 .result-operator {
     min-height: 350px;
 }
+
+mat-form-field {
+    width: 80%;
+}

@@ -13,33 +13,33 @@
   </div>
   <hr>
 
-  <div fxLayout="row" fxLayoutAlign="start start">
-    <div fxFlex="70%">
-      <h2>Code</h2>
-      <pre>
-        <code #code highlight class="typescript">
-const cakeObservable = Observable.interval(4000).map(() => this.getCakeShape());
-const stampObservable = Observable.interval(5000).map(() => this.getStamp());
-const cakeFactoryObservable = Observable.zip(
+  <div fxFlex="100%">
+    <h2>Code</h2>
+    <pre>
+      <code #code highlight class="typescript">
+const cakeObservable = Observable.interval(4000)
+  .map(() => this.getCakeShape());
+const stampObservable = Observable.interval(5000)
+  .map(() => this.getStamp());
+const cakeFactoryObservable = <b style="color: red">Observable.zip</b>(
   cakeObservable,
   stampObservable,
-  (cake, stamp) => cake + ' with ' + stamp,
+  (cake: string, stamp: string) => cake + ' with ' + stamp,
 );
 cakeFactoryObservable.subscribe((cake) => this.result.push(cake));
-        </code>
-      </pre>
-    </div>
+      </code>
+    </pre>
+  </div>
 
-    <div fxFlex="30%">
-      <div fxLayout="row" class="result-operator">
-        <div fxFlex="50%">
-          <h2>Zip result</h2>
-          <div *ngFor="let value of result">{{value}}</div>
-        </div>
+  <div fxFlex="100%">
+    <div fxLayout="row" class="result-operator">
+      <div fxFlex="100%">
+        <h2>Zip result</h2>
+        <div *ngFor="let value of result">{{value}}</div>
       </div>
-      <button mat-raised-button color="primary" (click)="run()">Run</button>
-      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
     </div>
+    <button mat-raised-button color="primary" (click)="run()">Run</button>
+    <button mat-raised-button color="warn" (click)="clear()">Clear</button>
   </div>
 
   <div>

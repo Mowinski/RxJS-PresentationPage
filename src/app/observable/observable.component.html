@@ -34,27 +34,27 @@
   </div>
   <hr>
 
-  <div fxLayout="row" fxLayoutAlign="start start" *ngIf="gap == 'Observable'">
-    <div fxFlex="70%">
-      <h2>Code</h2>
-      <pre>
-        <code #code highlight class="typescript">
-const observable = Observable.of('Observable test');
-this.$subscription = observable.subscribe(text => this.result = text);
+  <div fxFlex="100%" *ngIf="gap == 'Observable'">
+    <h2>Code</h2>
+    <pre>
+      <code #code highlight class="typescript">
+const observable = <b style="color: red">Observable.of('Observable test')</b>;
+this.$subscription = observable.<b style="color: green">subscribe</b>(
+  text => this.result = text
+);
 ...
 public onDestroy() &#123;
-  this.$subscription.unsubscribe();
+  this.$subscription.<b style="color: blue">unsubscribe</b>();
 &#125;
-        </code>
-      </pre>
-    </div>
+      </code>
+    </pre>
+  </div>
 
-    <div fxFlex="30%">
-      <h2>Result</h2>
-      <div [innerHTML]="result" class="result"></div>
-      <button mat-raised-button color="primary" (click)="run()">Run</button>
-      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
-    </div>
+  <div fxFlex="100%" *ngIf="gap == 'Observable'">
+    <h2>Result</h2>
+    <div [innerHTML]="result" class="result"></div>
+    <button mat-raised-button color="primary" (click)="run()">Run</button>
+    <button mat-raised-button color="warn" (click)="clear()">Clear</button>
   </div>
 
   <hr *ngIf="gap == 'Observable'">

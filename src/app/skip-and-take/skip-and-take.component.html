@@ -14,36 +14,36 @@
 
     <hr>
 
-    <div fxLayout="row" fxLayoutAlign="start start">
-      <div fxFlex="70%">
-        <h2>Code</h2>
-        <pre>
-          <code #code highlight class="typescript">
-const pancakesObservable = Observable.interval(3000).map((value) => "Pancakes " + value);
-pancakesObservable.skip(2)
-  .subscribe((pancakes: string) => this.skipResult.push(pancakes));
+    <div fxFlex="100%">
+      <h2>Code</h2>
+      <pre>
+        <code #code highlight class="typescript">
+Observable.interval(3000)
+  .map((value) => "Pancake " + value)
+  .<b style="color: red">skip</b>(2)
+  .subscribe((pancake: string) => this.skipResult.push(pancakes));
 
-const queueObservable = Observable.interval(1000).map((value) => "Client number " + value);
-queueObservable.take(5)
+Observable.interval(1000)
+  .map((value) => "Client number " + value)
+  .<b style="color: red">take</b>(5)
   .subscribe((client: string) => this.takeResult.push(client));
-          </code>
-        </pre>
-      </div>
+        </code>
+      </pre>
+    </div>
 
-      <div fxFlex="30%">
-        <div fxLayout="row" class="result-operator">
-          <div fxFlex="50%">
-            <h2>Skip result</h2>
-            <div *ngFor="let value of skipResult">{{value}}</div>
-          </div>
-          <div fxFlex="50%">
-            <h2>Take result</h2>
-            <div *ngFor="let value of takeResult">{{value}}</div>
-          </div>
+    <div fxFlex="100%">
+      <div fxLayout="row" class="result-operator">
+        <div fxFlex="50%">
+          <h2>Skip result</h2>
+          <div *ngFor="let value of skipResult">{{value}}</div>
         </div>
-        <button mat-raised-button color="primary" (click)="run()">Run</button>
-        <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+        <div fxFlex="50%">
+          <h2>Take result</h2>
+          <div *ngFor="let value of takeResult">{{value}}</div>
+        </div>
       </div>
+      <button mat-raised-button color="primary" (click)="run()">Run</button>
+      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
     </div>
 
     <div>

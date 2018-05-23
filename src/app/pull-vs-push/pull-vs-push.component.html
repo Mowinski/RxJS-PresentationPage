@@ -18,13 +18,13 @@
               <tbody>
                 <tr>
                   <th>Pull</th>
-                  <td (click)="function = 'Function'">Passive ({{ function }}): produces data when requested</td>
-                  <td (click)="iterator = 'Iterator'">Active ({{ iterator }}): decides when data is requested</td>
+                  <td (click)="function = 'Function'">Passive <div>({{ function }}):</div> produces data when requested</td>
+                  <td (click)="iterator = 'Iterator'">Active <div>({{ iterator }}):</div> decides when data is requested</td>
                 </tr>
                 <tr>
                   <th>Push</th>
-                  <td (click)="promise = 'Promise'">Active ({{ promise }}): produces data at its own pace</td>
-                  <td (click)="observable = 'Observable'">Passive ({{ observable }}): reacts to received data</td>
+                  <td (click)="promise = 'Promise'">Active <div>({{ promise }}):</div> produces data at its own pace</td>
+                  <td (click)="observable = 'Observable'">Passive <div>({{ observable }}):</div> reacts to received data</td>
                 </tr>
               </tbody>
             </table>
@@ -34,12 +34,11 @@
 
     <hr *ngIf="function != '?' && observable != '?' && promise != '?' && iterator != '?'">
 
-    <div fxLayout="row" fxLayoutAlign="start start" *ngIf="function != '?' && observable != '?' && promise != '?' && iterator != '?'">
-      <div fxFlex="70%">
-        <h2>Code</h2>
-        <pre>
-          <code #code highlight class="typescript">
-const observable = Observable.create((observer) => &#123;
+    <div fxFlex="100%" *ngIf="function != '?' && observable != '?' && promise != '?' && iterator != '?'">
+      <h2>Code</h2>
+      <pre>
+        <code #code highlight class="typescript">
+const observable = Observable.create((<b style="color: green">observer</b>) => &#123;
   observer.next(1);
   observer.next(2);
   if (this.isError) &#123;
@@ -50,24 +49,23 @@ const observable = Observable.create((observer) => &#123;
   observer.next(8);
 &#125;);
 
-const observer = &#123;
+const <b style="color: green">observer</b> = &#123;
   next: (value: number) => this.result += value + ' ',
   error: (error: Error) => this.result += 'Error: ' + error + ' ',
   complete: () => this.result += 'Complete ',
 &#125; as Observer&#60;number&#62;;
 
-this.$subscription = observable.subscribe(observer);
-          </code>
-        </pre>
-      </div>
+observable.subscribe(observer);
+        </code>
+      </pre>
+    </div>
 
-      <div fxFlex="30%">
-        <h2>Result</h2>
-        <div [innerHTML]="result" class="result"></div>
-        <mat-slide-toggle color="accent" (change)="isError = !isError">Raise error</mat-slide-toggle><br>
-        <button mat-raised-button color="primary" (click)="run()">Run</button>
-        <button mat-raised-button color="warn" (click)="clear()">Clear</button>
-      </div>
+    <div fxFlex="100%" *ngIf="function != '?' && observable != '?' && promise != '?' && iterator != '?'">
+      <h2>Result</h2>
+      <div [innerHTML]="result" class="result"></div>
+      <mat-slide-toggle color="accent" (change)="isError = !isError">Raise error</mat-slide-toggle><br>
+      <button mat-raised-button color="primary" (click)="run()">Run</button>
+      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
     </div>
 
     <div *ngIf="function != '?' && observable != '?' && promise != '?' && iterator != '?'">

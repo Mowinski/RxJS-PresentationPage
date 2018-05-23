@@ -35,15 +35,14 @@
 
   <div fxLayout="row" fxLayoutAlign="center center">
     <div fxFlex="50%">
-      <img src="assets/debounceTime.png" style="max-width: 80%;">
+      <img src="assets/debounceTime.png" style="max-width: 100%;">
     </div>
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="start start">
-    <div fxFlex="70%">
-      <h2>Code</h2>
-      <pre>
-        <code #code highlight class="typescript">
+  <div fxFlex="100%">
+    <h2>Code</h2>
+    <pre>
+      <code #code highlight class="typescript">
 const observable = Observable.create((observer) => &#123;
   setTimeout(() => observer.next(1), 1000);
   setTimeout(() => observer.next(2), 2000);
@@ -52,20 +51,19 @@ const observable = Observable.create((observer) => &#123;
   setTimeout(() => observer.next(8), 8000);
   setTimeout(() => observer.next(13), 13000);
   setTimeout(() => observer.complete(), 21000);
-&#125;).debounceTime(1500);
+&#125;)<b style="color: red">.debounceTime(1500)</b>;
 
-this.$subscription = observable.subscribe((number) => this.result += number + ' ');
-        </code>
-      </pre>
-    </div>
+observable.subscribe((number) => this.result += number + ' ');
+      </code>
+    </pre>
+  </div>
 
-    <div fxFlex="30%">
-      <h2>Result</h2>
-      <h3 *ngIf="timer">Elapsed time: {{ timer|number:'1.1-1' }}s</h3>
-      <div [innerHTML]="result" class="result"></div>
-      <button mat-raised-button color="primary" (click)="run()">Run</button>
-      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
-    </div>
+  <div fxFlex="100%">
+    <h2>Result</h2>
+    <h3 *ngIf="timer">Elapsed time: {{ timer|number:'1.1-1' }}s</h3>
+    <div [innerHTML]="result" class="result"></div>
+    <button mat-raised-button color="primary" (click)="run()">Run</button>
+    <button mat-raised-button color="warn" (click)="clear()">Clear</button>
   </div>
 
   <div>

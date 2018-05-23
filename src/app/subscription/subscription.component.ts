@@ -13,7 +13,7 @@ declare var hljs;
   styleUrls: ['./subscription.component.css']
 })
 export class SubscriptionComponent {
-  public result = 0;
+  public result = window.memory_leak;
 
   @ViewChild('code') set content(content: ElementRef) {
     if (content) {
@@ -37,10 +37,7 @@ export class SubscriptionComponent {
   constructor(private router: Router) { }
 
   run() {
-    this.result = 0;
-    if (window.memory_leak) {
-      this.result = window.memory_leak;
-    }
+    this.result = window.memory_leak ? window.memory_leak : 0;
     Observable.interval(1000).subscribe(value => {
       window.memory_leak = value;
       this.result += 1;

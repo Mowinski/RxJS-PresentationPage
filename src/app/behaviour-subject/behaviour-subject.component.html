@@ -1,60 +1,59 @@
 <div>
-    <div>
-      <h2>BehaviorSubject</h2>
-      <div  fxLayout="row">
-        <div fxFlex="50%">
-          <p>It is a simple subject which keep last value for new subscribers</p>
-        </div>
+  <div>
+    <h2>BehaviorSubject</h2>
+    <div  fxLayout="row">
+      <div fxFlex="100%">
+        <p>It is a simple subject which keep last value for new subscribers</p>
       </div>
     </div>
+  </div>
 
-    <hr>
+  <hr>
 
-    <div fxLayout="row" fxLayoutAlign="start start">
-      <div fxFlex="70%">
-        <h2>Code</h2>
-        <pre>
-          <code #code highlight class="typescript">
-run(runBehavior: boolean) &#123;
-  if (runBehavior) &#123;
-    this.behaviorSubject = new BehaviorSubject(this.myAge);
-    this.result = undefined;
-    this.$sub1 = this.behaviorSubject.subscribe((age: number) => this.result = age);
-  &#125; else &#123;
-    this.subject = new Subject();
-    this.subjectResult = undefined;
-    this.$sub2 = this.subject.subscribe((age: number) => this.subjectResult = age);
-  &#125;
+  <div fxFlex="100%">
+    <h2>Code</h2>
+    <pre>
+      <code #code highlight class="typescript">
+<b style="color: red">this.myAge = 18</b>;
+
+runBehaviorSubject() &#123;
+  this.behaviorSubject = new <b style="color: red">BehaviorSubject(this.myAge)</b>;
+  this.behaviorSubject.subscribe((age: number) => this.result = age);
+&#125;
+runSubject() &#123;
+  this.subject = new Subject();
+  this.subject.subscribe((age: number) => this.subjectResult = age);
 &#125;
 
 next() &#123;
   this.myAge++;
-  if (this.behaviorSubject) &#123;
-    this.behaviorSubject.next(this.myAge);
-  &#125;
-  if (this.subject) &#123;
-    this.subject.next(this.myAge);
-  &#125;
+  this.behaviorSubject.next(this.myAge);
+  this.subject.next(this.myAge);
 &#125;
-          </code>
-        </pre>
-      </div>
-
-      <div fxFlex="30%">
-        <h2>Subject result</h2>
-        <div [innerHTML]="subjectResult" class="result"></div>
-        <h2>BehaviorSubject result</h2>
-        <div [innerHTML]="result" class="result"></div>
-        <button mat-raised-button color="primary" (click)="run(true)">Run BehaviorSubject</button>
-        <button mat-raised-button color="primary" (click)="run(false)">Run Subject</button>
-        <br><br>
-        <button mat-raised-button color="accent" (click)="next()">Level Up <mat-icon>arrow_drop_up</mat-icon></button>
-        <button mat-raised-button color="warn" (click)="clear()">Clear</button>
-      </div>
-    </div>
-
-    <div>
-        <a routerLink="/subject"><mat-icon>arrow_backward</mat-icon></a>
-        <a routerLink="/subject/replay-subject"><mat-icon>arrow_forward</mat-icon></a>
-      </div>
+      </code>
+    </pre>
   </div>
+
+  <div fxFlex="100%" fxLayout="row">
+    <div fxFlex="50%">
+      <h2>Subject result</h2>
+      <div [innerHTML]="subjectResult" class="result"></div>
+    </div>
+    <div fxFlex="50%">
+      <h2>BehaviorSubject result</h2>
+      <div [innerHTML]="result" class="result"></div>
+    </div>
+  </div>
+
+  <div fxFlex="100%" fxLayoutAlign="center" fxLayoutGap="5%">
+    <button mat-raised-button color="primary" (click)="run(false)">Run Subject</button>
+    <button mat-raised-button color="primary" (click)="run(true)">Run BehaviorSubject</button>
+    <button mat-raised-button color="accent" (click)="next()">Level Up <mat-icon>arrow_drop_up</mat-icon></button>
+    <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+  </div>
+
+  <div>
+      <a routerLink="/subject"><mat-icon>arrow_backward</mat-icon></a>
+      <a routerLink="/subject/replay-subject"><mat-icon>arrow_forward</mat-icon></a>
+    </div>
+</div>

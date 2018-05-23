@@ -2,7 +2,7 @@
   <div>
     <h2>ReplaySubject</h2>
     <div  fxLayout="row">
-      <div fxFlex="50%">
+      <div fxFlex="100%">
         <p>It keeps last X values from an observable object and passes them to a new observer in correct order</p>
       </div>
     </div>
@@ -10,31 +10,18 @@
 
   <hr>
 
-  <div fxLayout="row" fxLayoutAlign="start start">
-    <div fxFlex="70%">
-      <h2>Code</h2>
-      <pre>
-        <code #code highlight class="typescript">
+  <div fxFlex="100%">
+    <h2>Code</h2>
+    <pre>
+      <code #code highlight class="typescript">
 @Injectable()
 export class NewsService &#123;
-  private $sub: Subscription;
-  private newsSubject = new ReplaySubject&#60;News&#62;(3);
+  public newsSubject = new <b style="color: red">ReplaySubject&#60;News&#62;(3)</b>;
 
   create() &#123;
-    this.$sub = Observable.interval(5000)
-        .take(NEWS.length)
-        .map((ind: number) => NEWS[ind])
-        .subscribe(this.newsSubject);
-  &#125;
-
-  getLatestNews(): ReplaySubject&#60;News&#62; &#123;
-    return this.newsSubject
-  &#125;
-
-  destroy() &#123;
-    if (this.$sub) &#123;
-      this.$sub.unsubscribe();
-    &#125;
+    Observable.interval(5000)
+      ... // Return new instance of class News every 5 seconds
+      .subscribe(this.newsSubject);
   &#125;
 &#125;
 
@@ -42,23 +29,23 @@ export class NewsService &#123;
 
 run() &#123;
   const indx = this.subscriptions.length;
-  this.subscriptions.push(this.newsService.getLatestNews().subscribe(
-    (news: News) => this.result += 'Reader ' + indx + ': ' + news.title + '',
-  ));
+  const subscription = this.newsService.newsSubject.subscribe(
+    (news: News) => this.result += 'Reader $&#123;index&#125;: $&#123;news&#125;',
+  );
+  this.subscriptions.push(subscription);
 &#125;
-        </code>
-      </pre>
-    </div>
+      </code>
+    </pre>
+  </div>
 
-    <div fxFlex="30%">
-      <h2>Result</h2>
-      <div [innerHTML]="result | sanitizeHtml" class="result"></div>
-      <button mat-raised-button color="primary" (click)="run()">Attach new ReplaySubject</button>
-      <button mat-raised-button color="warn" (click)="stop()">Stop</button>
-    </div>
+  <div fxFlex="100%">
+    <h2>Result</h2>
+    <div [innerHTML]="result | sanitizeHtml" class="result"></div>
+    <button mat-raised-button color="primary" (click)="run()">Attach new ReplaySubject</button>
+    <button mat-raised-button color="warn" (click)="stop()">Stop</button>
   </div>
 
   <div>
-      <a routerLink="/subject/behavior-subject"><mat-icon>arrow_backward</mat-icon></a>
-    </div>
+    <a routerLink="/subject/behavior-subject"><mat-icon>arrow_backward</mat-icon></a>
+  </div>
 </div>

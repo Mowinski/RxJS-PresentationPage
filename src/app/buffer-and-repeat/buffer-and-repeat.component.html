@@ -3,11 +3,11 @@
       <div fxLayout="row">
         <div fxFlex="50%">
           <h2>Buffer (click on image)</h2>
-          <img src="./assets/buffer.png" style="max-width: 80%;" (click)="showBufferVideo = !showBufferVideo">
+          <img src="./assets/buffer.png" style="max-width: 60%;" (click)="showBufferVideo = !showBufferVideo">
         </div>
         <div fxFlex="50%">
           <h2>Repeat (click on image)</h2>
-          <img src="./assets/repeat.png" style="max-width: 80%;" (click)="showRepeatVideo = !showRepeatVideo">
+          <img src="./assets/repeat.png" style="max-width: 60%;" (click)="showRepeatVideo = !showRepeatVideo">
         </div>
       </div>
     </div>
@@ -21,16 +21,19 @@
     </div>
     <hr>
 
-    <div fxLayout="row" fxLayoutAlign="start start">
-      <div fxFlex="70%">
-        <h2>Code</h2>
-        <pre>
-          <code #code highlight class="typescript">
-const waterObservable = Observable.interval(300).map(() => this.getWaterUnit());
-const triggerObservable = Observable.interval(5000);
-const fontainObservable = waterObservable.buffer(triggerObservable);
+    <div fxFlex="100%">
+      <h2>Code</h2>
+      <pre>
+        <code #code highlight class="typescript">
+const waterObservable = Observable.interval(300).map(
+  () => getWaterUnit(),
+);
+const gravityTriggerObservable = Observable.interval(5000);
+const fontainObservable = waterObservable.<b style="color: red">buffer</b>(
+  gravityTriggerObservable,
+);
 
-this.$bufferSubscription = fontainObservable.subscribe((water: string[]) => this.bufferResult = water);
+fontainObservable.subscribe((water) => this.bufferResult = water);
 
 const motherboardProduction = Observable.create((observer) => &#123;
   observer.next('Mount processor');
@@ -42,28 +45,29 @@ const motherboardProduction = Observable.create((observer) => &#123;
   setTimeout(() => observer.complete(), 10000);
 &#125;);
 
-motherboardProduction.repeat(3)
+motherboardProduction.<b style="color: red">repeat</b>(3)
   .subscribe((command: string) => this.repeatResult.push(command));
-          </code>
-        </pre>
-      </div>
+        </code>
+      </pre>
+    </div>
 
-      <div fxFlex="30%">
-        <div fxLayout="row" class="result-operator">
-          <div fxFlex="50%">
-            <h2>Buffer result</h2>
-            <span *ngFor="let drop of bufferResult">
-              <img src="./assets/drop.png" *ngFor="let i of Arr(drop).fill(1)" class="waterdrop">
-            </span>
-          </div>
-          <div fxFlex="50%" style="margin-left: 20px">
-            <h2>Repeat result</h2>
-            <div *ngFor="let value of repeatResult">{{value}}</div>
-          </div>
+    <div fxFlex="100%">
+      <div fxLayout="row" class="result-operator">
+        <div fxFlex="50%">
+          <h2>Buffer result</h2>
+          <h3>Fountain</h3>
+          <span *ngFor="let drop of bufferResult">
+            <img src="./assets/drop.png" *ngFor="let i of Arr(drop).fill(1)" class="waterdrop">
+          </span>
         </div>
-        <button mat-raised-button color="primary" (click)="run()">Run</button>
-        <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+        <div fxFlex="50%" style="margin-left: 20px">
+          <h2>Repeat result</h2>
+          <h3>Robot</h3>
+          <div *ngFor="let value of repeatResult">{{value}}</div>
+        </div>
       </div>
+      <button mat-raised-button color="primary" (click)="run()">Run</button>
+      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
     </div>
 
     <div>

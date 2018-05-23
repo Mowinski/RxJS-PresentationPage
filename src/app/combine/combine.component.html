@@ -1,64 +1,65 @@
 <div>
-    <div>
-      <h2>CombineLatest</h2>
-    </div>
+  <div>
+    <h2>CombineLatest</h2>
+  </div>
 
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <div fxFlex="50%">
-          <img src="assets/combineLatest.png" style="max-width: 100%;">
-        </div>
-      </div>
-    <hr>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <img src="assets/combineLatest.png" style="max-width: 70%;">
+  </div>
+  <hr>
 
-    <div fxLayout="row" fxLayoutAlign="start start">
-      <div fxFlex="70%">
-        <h2>Code</h2>
-        <pre *ngIf="!showCode">
-          <code #code highlight class="typescript" (click)="showCode = true;">
-const databaseObservable = Observable.interval(10).map(() => this.getDatabaseStatus());
-const webserverObservable = Observable.interval(10).map(() => this.getWebserverStatus());
-const monitorObservable = Observable.combineLatest(
-  databaseObservable,
-  webserverObservable,
-  (databaseStatus, webserverStatus) => databaseStatus && webserverStatus,
+  <div fxFlex="100%">
+    <h2>Code</h2>
+    <pre *ngIf="!showCode">
+      <code #code highlight class="typescript" (click)="showCode = true;">
+const dbObservable = Observable.interval(10)
+  .map(() => this.getDatabaseStatus());
+const wsObservable = Observable.interval(10)
+  .map(() => this.getWebserverStatus());
+
+const monitorObservable = Observable.<b style="color: red">combineLatest</b>(
+  dbObservable,
+  wsObservable,
+  (dbStatus, wsStatus) => dbStatus && wsStatus,
 )
 
 monitorObservable.subscribe((status: boolean) => this.status = status);
-          </code>
-        </pre>
-        <pre *ngIf="showCode">
-          <code #code2 highlight class="typescript" (click)="showCode = false;">
-const databaseObservable = Observable.interval(10).map(() => this.getDatabaseStatus());
-const webserverObservable = Observable.interval(10).map(() => this.getWebserverStatus());
-const monitorObservable = Observable.combineLatest(
-  databaseObservable,
-  webserverObservable,
-  (databaseStatus, webserverStatus) => databaseStatus && webserverStatus,
+      </code>
+    </pre>
+    <pre *ngIf="showCode">
+      <code #code2 highlight class="typescript" (click)="showCode = false;">
+const dbObservable = Observable.interval(10)
+  .map(() => this.getDatabaseStatus());
+const wsObservable = Observable.interval(10)
+  .map(() => this.getWebserverStatus());
+
+const monitorObservable = Observable.<b style="color: red">combineLatest</b>(
+  dbObservable,
+  wsObservable,
+  (dbStatus, wsStatus) => dbStatus && wsStatus,
 )
-.distinctUntilChanged();
+.<b style="color: red">distinctUntilChanged</b>();
 monitorObservable.subscribe((status: boolean) => this.status = status);
-          </code>
-        </pre>
-      </div>
+      </code>
+    </pre>
+  </div>
 
-      <div fxFlex="30%">
-        <div fxLayout="row" class="result-operator">
-          <div fxFlex="50%">
-            <h2>System status</h2>
-            <img *ngIf="status" src="./assets/success.png" style="max-width: 50px">
-            <img *ngIf="!status" src="./assets/alarm.png" style="max-width: 50px">
-            <div [innerHTML]="result"></div>
-          </div>
-        </div>
-        <mat-slide-toggle color="primary" [checked]="databaseStatus" (change)="databaseStatus = !databaseStatus">Database status</mat-slide-toggle><br>
-        <mat-slide-toggle color="primary" [checked]="webserverStatus" (change)="webserverStatus = !webserverStatus">Webserver status</mat-slide-toggle><br>
-        <button mat-raised-button color="primary" (click)="run()">Run</button>
-        <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+  <div fxFlex="100%">
+    <div fxLayout="row" class="result-operator">
+      <div fxFlex="50%">
+        <h2>System status <span [innerHTML]="result"></span></h2>
+        <img *ngIf="status" src="./assets/success.png" style="max-width: 50px">
+        <img *ngIf="!status" src="./assets/alarm.png" style="max-width: 50px">
       </div>
     </div>
+    <mat-slide-toggle color="primary" [checked]="databaseStatus" (change)="databaseStatus = !databaseStatus">Database status</mat-slide-toggle><br>
+    <mat-slide-toggle color="primary" [checked]="webserverStatus" (change)="webserverStatus = !webserverStatus">Webserver status</mat-slide-toggle><br>
+    <button mat-raised-button color="primary" (click)="run()">Run</button>
+    <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+  </div>
 
-    <div>
-      <a routerLink="/operators/merge"><mat-icon>arrow_backward</mat-icon></a>
-      <a routerLink="/operators/zip"><mat-icon>arrow_forward</mat-icon></a>
-    </div>
+  <div>
+    <a routerLink="/operators/merge"><mat-icon>arrow_backward</mat-icon></a>
+    <a routerLink="/operators/zip"><mat-icon>arrow_forward</mat-icon></a>
+  </div>
   </div>

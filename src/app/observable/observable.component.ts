@@ -13,7 +13,7 @@ declare var hljs;
 })
 export class ObservableComponent {
   public result = '';
-  public gap = '?';
+  public gap = '?'
   private $subscription: Subscription;
 
   @ViewChild('code') set content(content: ElementRef) {

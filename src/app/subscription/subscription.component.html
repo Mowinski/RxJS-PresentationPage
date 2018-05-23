@@ -2,7 +2,7 @@
     <div>
       <h2>Subscription - nice trick</h2>
       <div  fxLayout="row">
-        <div fxFlex="50%">
+        <div fxFlex="100%">
           <p>Every subscription should be unsubscribed. Let me show you why it is so important.</p>
         </div>
       </div>
@@ -10,33 +10,28 @@
 
     <hr>
     <div fxLayout="row" fxLayoutAlign="center center">
-      <div fxFlex="50%">
+      <div fxFlex="70%">
         <img src="assets/interval.png" style="max-width: 100%;">
       </div>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start start">
-      <div fxFlex="70%">
-        <h2>Code</h2>
-        <pre>
-          <code #code highlight class="typescript">
-this.result = 0;
-if (window.memory_leak) &#123;
-  this.result = window.memory_leak;
-&#125;
-Observable.interval(1000).subscribe(value => &#123;
+    <div fxFlex="100%">
+      <h2>Code</h2>
+      <pre>
+        <code #code highlight class="typescript">
+this.result = window.memory_leak ? window.memory_leak : 0;
+Observable.<b style="color: red">interval(1000)</b>.subscribe(value => &#123;
   window.memory_leak = value;
   this.result += 1;
 &#125;);
-          </code>
-        </pre>
-      </div>
+        </code>
+      </pre>
+    </div>
 
-      <div fxFlex="30%">
-        <h2>Result</h2>
-        <div [innerHTML]="result" class="result"></div>
-        <button mat-raised-button color="primary" (click)="run()">Run</button>
-      </div>
+    <div fxFlex="100%">
+      <h2>Result</h2>
+      <div [innerHTML]="result" class="result"></div>
+      <button mat-raised-button color="primary" (click)="run()">Run</button>
     </div>
 
     <div>
